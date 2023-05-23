@@ -232,11 +232,6 @@ const App = () => {
     }
   };
 
-  const handleEditProfessional = (professional: ProfessionalData) => {
-    console.log(professional);
-    setFormData(professional);
-  };
-
   const handleDeleteProfessional = async (id: string) => {
     setLoading(true);
 
