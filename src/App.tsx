@@ -22,6 +22,7 @@ interface FormData {
   details2?: string;
   details3?: string;
   details4?: string;
+  images?: any[];
 }
 
 interface GymData {
@@ -71,6 +72,7 @@ const App = () => {
     details2: "",
     details3: "",
     details4: "",
+    images: [],
   });
 
   const [gyms, setGyms] = useState<GymData[]>([]);
@@ -191,6 +193,7 @@ const App = () => {
       details4: "",
       photoLink: "",
       gymId: "",
+      images: [],
     });
     setLoading(false);
   };
@@ -244,6 +247,42 @@ const App = () => {
       console.log(error);
       setLoading(false);
     }
+  };
+
+  const handleAddImage = async (e: any) => {
+    e.preventDefault();
+    setFormData((prevFormData: any) => ({
+      ...prevFormData,
+      images: [...prevFormData?.images, ""],
+    }));
+  };
+
+  useEffect(() => {
+    console.log(formData?.images);
+  }, [formData]);
+
+  const handleRemoveImage = async (e: any, index: number) => {
+    e.preventDefault();
+    setFormData((prevFormData: any) => ({
+      ...prevFormData,
+      images: prevFormData.images.filter((_: any, i: any) => i !== index),
+    }));
+  };
+
+  const handleImageChange = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    e.preventDefault();
+    setFormData((prevFormData: any) => ({
+      ...prevFormData,
+      images: prevFormData.images.map((image: any, i: number) => {
+        if (i === index) {
+          return e.target.value;
+        }
+        return image;
+      }),
+    }));
   };
 
   return (
@@ -443,6 +482,65 @@ const App = () => {
             value={formData.details4}
             onChange={handleChange}
           />
+        </label>
+        <label className="form-label">
+          Imagens:
+          {/* array of images */}
+          <div>
+            <button onClick={handleAddImage}>Adicionar Imagem</button>
+            {formData?.images?.map((image, index) => (
+              <>
+                <div
+                  key={index}
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    gap: "10px",
+                  }}
+                >
+                  <input
+                    className="form-input"
+                    type="text"
+                    name="images"
+                    style={{
+                      marginTop: "10px",
+                    }}
+                    value={image}
+                    onChange={(e) => handleImageChange(e, index)}
+                  />
+                  <button onClick={(e) => handleRemoveImage(e, index)}>
+                    X
+                  </button>
+                </div>
+              </>
+            ))}
+
+            {/* PREVIEW IMAGES CARROUSEL*/}
+
+            {formData?.images?.map((image, index) => (
+              <div
+                key={index}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  width: "100%",
+                  marginBottom: "10px",
+                }}
+              >
+                <img
+                  style={{
+                    maxWidth: "400px",
+                    height: "200px",
+                    width: "100%",
+                    borderRadius: "10px",
+                  }}
+                  src={image}
+                />
+              </div>
+            ))}
+          </div>
         </label>
         <button className="form-button" type="submit">
           {formData.id ? "Editar Academia" : "Criar Academia"}
