@@ -23,6 +23,7 @@ interface FormData {
   details3?: string;
   details4?: string;
   images?: any[];
+  shifts?: any[];
 }
 
 interface GymData {
@@ -55,6 +56,7 @@ interface ProfessionalData {
 }
 
 const App = () => {
+  const initialShift = { day: "", start: "08:00", end: "18:00" };
   const [formData, setFormData] = useState<FormData>({
     name: "",
     address: "",
@@ -73,6 +75,36 @@ const App = () => {
     details3: "",
     details4: "",
     images: [],
+    shifts: [
+      {
+        day: "Segunda-feira",
+        shift: "08:00 - 18:00",
+      },
+      {
+        day: "Terça-feira",
+        shift: "08:00 - 18:00",
+      },
+      {
+        day: "Quarta-feira",
+        shift: "08:00 - 18:00",
+      },
+      {
+        day: "Quinta-feira",
+        shift: "08:00 - 18:00",
+      },
+      {
+        day: "Sexta-feira",
+        shift: "08:00 - 18:00",
+      },
+      {
+        day: "Sábado",
+        shift: "08:00 - 18:00",
+      },
+      {
+        day: "Domingo",
+        shift: "08:00 - 18:00",
+      },
+    ],
   });
 
   const [gyms, setGyms] = useState<GymData[]>([]);
@@ -194,6 +226,36 @@ const App = () => {
       photoLink: "",
       gymId: "",
       images: [],
+      shifts: [
+        {
+          day: "Segunda-feira",
+          shift: "08:00 - 18:00",
+        },
+        {
+          day: "Terça-feira",
+          shift: "08:00 - 18:00",
+        },
+        {
+          day: "Quarta-feira",
+          shift: "08:00 - 18:00",
+        },
+        {
+          day: "Quinta-feira",
+          shift: "08:00 - 18:00",
+        },
+        {
+          day: "Sexta-feira",
+          shift: "08:00 - 18:00",
+        },
+        {
+          day: "Sábado",
+          shift: "08:00 - 18:00",
+        },
+        {
+          day: "Domingo",
+          shift: "08:00 - 18:00",
+        },
+      ],
     });
     setLoading(false);
   };
@@ -257,10 +319,6 @@ const App = () => {
     }));
   };
 
-  useEffect(() => {
-    console.log(formData?.images);
-  }, [formData]);
-
   const handleRemoveImage = async (e: any, index: number) => {
     e.preventDefault();
     setFormData((prevFormData: any) => ({
@@ -283,6 +341,19 @@ const App = () => {
         return image;
       }),
     }));
+  };
+
+  const handleShiftChange = (index: any, event: any) => {
+    event.preventDefault();
+    const values = [...formData?.shifts];
+    values[index][event.target.name] = event.target.value;
+    setFormData((prevState) => ({ ...prevState, shifts: values }));
+  };
+
+  const handleRemoveShift = (index: any) => {
+    const values = [...formData?.shifts];
+    values.splice(index, 1);
+    setFormData((prevState) => ({ ...prevState, shifts: values }));
   };
 
   return (
@@ -356,6 +427,41 @@ const App = () => {
             onChange={handleChange}
           />
         </label>
+        {formData?.shifts?.map((shift, index) => (
+          <div key={index} className="shift-row">
+            <div className="form-row">
+              <label className="form-label">
+                Dia da semana:
+                <input
+                  className="form-input"
+                  type="text"
+                  name="day"
+                  value={shift.day}
+                  onChange={(event) => handleShiftChange(index, event)}
+                />
+              </label>
+              <label className="form-label">
+                Início e fim ex: (18:00 - 20:00):
+                <input
+                  className="form-input"
+                  type="text"
+                  name="shift"
+                  value={shift.shift}
+                  onChange={(event) => handleShiftChange(index, event)}
+                />
+              </label>
+            </div>
+            {index > 0 && (
+              <button
+                type="button"
+                onClick={() => handleRemoveShift(index)}
+                className="remove-shift-button"
+              >
+                Remover Turno
+              </button>
+            )}
+          </div>
+        ))}
         <label className="form-label">
           WhatsApp:
           <input
