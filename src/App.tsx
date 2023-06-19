@@ -44,6 +44,8 @@ interface GymData {
   details2?: string;
   details3?: string;
   details4?: string;
+  images?: any[];
+  shifts?: any[];
 }
 
 interface ProfessionalData {
@@ -149,7 +151,42 @@ const App = () => {
   };
 
   const handleEdit = (gym: GymData) => {
-    setFormData(gym);
+    const gymEdit = gym;
+
+    if (gym?.shifts?.length === 0) {
+      gymEdit.shifts = [
+        {
+          day: "Segunda-feira",
+          shift: "08:00 - 18:00",
+        },
+        {
+          day: "Terça-feira",
+          shift: "08:00 - 18:00",
+        },
+        {
+          day: "Quarta-feira",
+          shift: "08:00 - 18:00",
+        },
+        {
+          day: "Quinta-feira",
+          shift: "08:00 - 18:00",
+        },
+        {
+          day: "Sexta-feira",
+          shift: "08:00 - 18:00",
+        },
+        {
+          day: "Sábado",
+          shift: "08:00 - 18:00",
+        },
+        {
+          day: "Domingo",
+          shift: "08:00 - 18:00",
+        },
+      ];
+    }
+
+    setFormData(gymEdit);
   };
 
   const handleDelete = async (id: string) => {
