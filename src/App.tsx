@@ -295,6 +295,7 @@ const App = () => {
           shift: "08:00 - 18:00",
         },
       ],
+      listPrices: [],
     });
     setLoading(false);
   };
