@@ -24,6 +24,7 @@ interface FormData {
   details4?: string;
   images?: any[];
   shifts?: any[];
+  listPrices?: any[];
 }
 
 interface GymData {
@@ -46,6 +47,7 @@ interface GymData {
   details4?: string;
   images?: any[];
   shifts?: any[];
+  listPrices?: any[];
 }
 
 interface ProfessionalData {
@@ -106,6 +108,7 @@ const App = () => {
         shift: "08:00 - 18:00",
       },
     ],
+    listPrices: [],
   });
 
   const [gyms, setGyms] = useState<GymData[]>([]);
@@ -393,6 +396,32 @@ const App = () => {
     setFormData((prevState) => ({ ...prevState, shifts: values }));
   };
 
+  const handleAddPrices = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setFormData((prevFormData: any) => ({
+      ...prevFormData,
+      listPrices: [...prevFormData?.listPrices, { name: "", value: 0 }],
+    }));
+  };
+
+  const handleRemovePrices = (e: any, index: number) => {
+    e.preventDefault();
+    setFormData((prevFormData: any) => ({
+      ...prevFormData,
+      listPrices: prevFormData.listPrices.filter(
+        (_: any, i: any) => i !== index
+      ),
+    }));
+  };
+
+  const handlePricesChange = (index: any, event: any) => {
+    event.preventDefault();
+    // @ts-ignore
+    const values = [...formData?.listPrices];
+    values[index][event.target.name] = event.target.value;
+    setFormData((prevState) => ({ ...prevState, listPrices: values }));
+  };
+
   return (
     <div className={`container ${loading ? "active" : ""}`}>
       {loading && (
@@ -464,6 +493,54 @@ const App = () => {
             onChange={handleChange}
           />
         </label>
+        <label className="form-label">
+          <button
+            type="button"
+            onClick={(e: any) => handleAddPrices(e)}
+            className="button-add"
+          >
+            Adicionar Plano
+          </button>
+        </label>
+
+        {formData?.listPrices?.map((price, index) => (
+          <div key={index} className="price-row">
+            <div className="form-row">
+              <label className="form-label">
+                Nome do plano:
+                <input
+                  className="form-input"
+                  type="text"
+                  name="name"
+                  value={price.name}
+                  onChange={(event) => handlePricesChange(index, event)}
+                />
+              </label>
+              <label className="form-label">
+                Valor:
+                <input
+                  className="form-input"
+                  type="number"
+                  name="value"
+                  value={price.value}
+                  onChange={(event) => handlePricesChange(index, event)}
+                />
+              </label>
+            </div>
+
+            <button
+              style={{
+                marginBottom: 10,
+              }}
+              type="button"
+              onClick={(e) => handleRemovePrices(e, index)}
+              className="button-remove"
+            >
+              Remover Plano
+            </button>
+          </div>
+        ))}
+
         {formData?.shifts?.map((shift, index) => (
           <div key={index} className="shift-row">
             <div className="form-row">
