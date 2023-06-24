@@ -58,7 +58,6 @@ interface ProfessionalData {
 }
 
 const App = () => {
-  const initialShift = { day: "", start: "08:00", end: "18:00" };
   const [formData, setFormData] = useState<FormData>({
     name: "",
     address: "",
@@ -382,6 +381,7 @@ const App = () => {
 
   const handleShiftChange = (index: any, event: any) => {
     event.preventDefault();
+    // @ts-ignore
     const values = [...formData?.shifts];
     values[index][event.target.name] = event.target.value;
     setFormData((prevState) => ({ ...prevState, shifts: values }));
