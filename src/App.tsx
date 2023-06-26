@@ -224,6 +224,13 @@ const App = () => {
         latitude: Number(String(formData.latitude)),
         longitude: Number(String(formData.longitude)),
         valueMonth: Number(String(formData.valueMonth)),
+        listPrices:
+          formData?.listPrices && formData?.listPrices?.length > 0
+            ? formData?.listPrices?.map((item: any) => ({
+                name: item.name,
+                price: Number(String(item.price)),
+              }))
+            : [],
       };
 
       if (formData.id) {
@@ -401,7 +408,7 @@ const App = () => {
     e.preventDefault();
     setFormData((prevFormData: any) => ({
       ...prevFormData,
-      listPrices: [...prevFormData?.listPrices, { name: "", value: 0 }],
+      listPrices: [...prevFormData?.listPrices, { name: "", price: 0 }],
     }));
   };
 
@@ -522,8 +529,8 @@ const App = () => {
                 <input
                   className="form-input"
                   type="number"
-                  name="value"
-                  value={price.value}
+                  name="price"
+                  value={price.price}
                   onChange={(event) => handlePricesChange(index, event)}
                 />
               </label>
