@@ -25,6 +25,8 @@ interface FormData {
   images?: any[];
   shifts?: any[];
   listPrices?: any[];
+  actuationName?: string;
+  actuationDescription?: string;
 }
 
 interface GymData {
@@ -48,6 +50,8 @@ interface GymData {
   images?: any[];
   shifts?: any[];
   listPrices?: any[];
+  actuationName?: string;
+  actuationDescription?: string;
 }
 
 interface ProfessionalData {
@@ -109,6 +113,8 @@ const App = () => {
       },
     ],
     listPrices: [],
+    actuationName: "",
+    actuationDescription: "",
   });
 
   const [gyms, setGyms] = useState<GymData[]>([]);
@@ -303,6 +309,8 @@ const App = () => {
         },
       ],
       listPrices: [],
+      actuationName: "",
+      actuationDescription: "",
     });
     setLoading(false);
   };
@@ -865,6 +873,30 @@ const App = () => {
 
       <div className="gyms-list">
         <h2>Profissionais Cadastrados</h2>
+        {professionals.map((professional) => (
+          <div key={professional.id} className="gym-item">
+            <span className="gym-name">{professional.name}</span>
+            <span className="gym-name">
+              {professional?.Gyms.length > 0 &&
+                professional?.Gyms?.map((item: any) => {
+                  return item?.gym?.name;
+                })}
+            </span>
+
+            <div className="professional-buttons">
+              <button
+                className="delete-button"
+                onClick={() => handleDeleteProfessional(professional.id)}
+              >
+                Excluir
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="personal-list">
+        <h2>Personal</h2>
         {professionals.map((professional) => (
           <div key={professional.id} className="gym-item">
             <span className="gym-name">{professional.name}</span>
