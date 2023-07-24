@@ -544,6 +544,8 @@ const App = () => {
         </label>
         <label className="form-label">
           Instagram:
+          <br />
+          ex: ( jeovagomes )
           <input
             className="form-input"
             type="text"

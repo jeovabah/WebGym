@@ -185,6 +185,20 @@ export const Personal = ({
           />
         </label>
         <br />
+        <label className="form-label">
+          Instagram:
+          <br />
+          ex: ( jeovagomes )
+          <input
+            className="form-input"
+            type="text"
+            name="instagram"
+            value={formData.instagram}
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+
         <button className="form-button" type="submit">
           Criar Personal
         </button>
