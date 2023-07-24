@@ -750,7 +750,6 @@ const App = () => {
 
       <Personal
         formData={formData}
-        gyms={gyms}
         handleChange={handleChange}
         resetForm={resetForm}
         setLoading={setLoading}
