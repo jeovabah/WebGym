@@ -19,6 +19,7 @@ interface PersonalData {
   actuation?: any;
   createdAt: Date;
   updatedAt: Date;
+  instagram?: string;
 }
 
 export const Personal = ({
@@ -53,6 +54,7 @@ export const Personal = ({
         description: formData.description,
         price: Number(formData.price),
         about: formData.about,
+        instagram: formData.instagram,
       } as PersonalData;
 
       let urlApi = "";
