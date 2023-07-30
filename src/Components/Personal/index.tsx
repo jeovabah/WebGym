@@ -134,6 +134,18 @@ export const Personal = ({
         </label>
         <br />
         <label className="form-label">
+          Link do Icon:
+          <input
+            className="form-input"
+            type="text"
+            name="phoneWpp"
+            value={formData.icon}
+            onChange={handleChange}
+          />
+        </label>
+
+        <br />
+        <label className="form-label">
           Link da Foto:
           <input
             className="form-input"
