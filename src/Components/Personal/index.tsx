@@ -6,9 +6,11 @@ interface Props {
   formData: any;
   handleChange: any;
   resetForm: (field: any) => void;
+  personals: PersonalData[];
+  setPersonals: (value: PersonalData[]) => void;
 }
 
-interface PersonalData {
+export interface PersonalData {
   id: string;
   name: string;
   photoLink?: string;
@@ -27,9 +29,9 @@ export const Personal = ({
   formData,
   handleChange,
   resetForm,
+  personals,
+  setPersonals,
 }: Props) => {
-  const [personals, setPersonals] = useState<PersonalData[]>([]);
-
   const fetchPersonals = async () => {
     setLoading(true);
     try {

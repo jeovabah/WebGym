@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Api } from "./services/api";
 import { Professional } from "./Components/Professional";
-import { Personal } from "./Components/Personal";
+import { Personal, PersonalData } from "./Components/Personal";
+import { Actuation } from "./Components/Actuation";
 
 interface FormData {
   gymId?: any;
@@ -109,7 +110,7 @@ const App = () => {
     actuationName: "",
     actuationDescription: "",
   });
-
+  const [personals, setPersonals] = useState<PersonalData[]>([]);
   const [gyms, setGyms] = useState<GymData[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -751,7 +752,18 @@ const App = () => {
       />
 
       <Personal
+        setPersonals={setPersonals}
+        personals={personals}
         formData={formData}
+        handleChange={handleChange}
+        resetForm={resetForm}
+        setLoading={setLoading}
+      />
+
+      <Actuation
+        formData={formData}
+        personals={personals}
+        setPersonals={setPersonals}
         handleChange={handleChange}
         resetForm={resetForm}
         setLoading={setLoading}
