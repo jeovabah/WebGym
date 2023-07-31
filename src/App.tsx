@@ -4,6 +4,7 @@ import { Api } from "./services/api";
 import { Professional } from "./Components/Professional";
 import { Personal, PersonalData } from "./Components/Personal";
 import { Actuation } from "./Components/Actuation";
+import { GeneralSettings } from "./Components/GeneralSettings";
 
 interface FormData {
   gymId?: any;
@@ -305,6 +306,7 @@ const App = () => {
     }
 
     setLoading(false);
+    location?.reload();
   };
 
   const handleAddImage = async (e: any) => {
@@ -764,6 +766,12 @@ const App = () => {
         formData={formData}
         personals={personals}
         setPersonals={setPersonals}
+        handleChange={handleChange}
+        resetForm={resetForm}
+        setLoading={setLoading}
+      />
+      <GeneralSettings
+        formData={formData}
         handleChange={handleChange}
         resetForm={resetForm}
         setLoading={setLoading}

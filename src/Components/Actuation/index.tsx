@@ -65,7 +65,7 @@ export const Actuation = ({
         }`
       );
 
-      resetForm(["price", "about"]);
+      resetForm(["price", "about", "icon"]);
       setLoading(false);
     } catch (error) {
       console.log(error);
