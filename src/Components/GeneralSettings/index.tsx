@@ -87,7 +87,7 @@ export const GeneralSettings = ({
         </label>
         <br />
         <label className="form-label">
-          Link do icone:
+          Texto para whatsapp para profissional:
           <input
             className="form-input"
             type="text"
