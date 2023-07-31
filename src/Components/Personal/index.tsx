@@ -1,5 +1,5 @@
 import { Api } from "../../services/api";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 interface Props {
   setLoading: (value: boolean) => void;

@@ -30,7 +30,6 @@ export const Actuation = ({
   handleChange,
   resetForm,
   personals,
-  setPersonals,
 }: Props) => {
   const [actuations, setActuations] = useState<any>([]);
 
