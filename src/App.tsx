@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Api } from "./services/api";
-import { Professional } from "./Components/Professional";
-import { Personal, PersonalData } from "./Components/Personal";
-import { Actuation } from "./Components/Actuation";
-import { GeneralSettings } from "./Components/GeneralSettings";
 import FaceSimilarityComponent from "./components/FaceSimilarityComponent";
+import { Personal, PersonalData } from "./components/Personal";
+import { Actuation } from "./components/Actuation";
+import { GeneralSettings } from "./components/GeneralSettings";
+import { Professional } from "./components/Professional";
 
 interface FormData {
   gymId?: any;
