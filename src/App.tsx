@@ -5,7 +5,6 @@ import { Professional } from "./Components/Professional";
 import { Personal, PersonalData } from "./Components/Personal";
 import { Actuation } from "./Components/Actuation";
 import { GeneralSettings } from "./Components/GeneralSettings";
-import { ImageAiArt } from "./components/ImageAiArt";
 import FaceSimilarityComponent from "./components/FaceSimilarityComponent";
 
 interface FormData {

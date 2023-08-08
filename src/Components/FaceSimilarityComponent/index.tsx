@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import * as faceapi from "face-api.js";
 
 function FaceSimilarityComponent() {
