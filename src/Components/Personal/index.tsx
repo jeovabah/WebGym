@@ -77,7 +77,7 @@ export const Personal = ({
       );
 
       fetchPersonals();
-      resetForm(["price", "about"]);
+      resetForm(["price", "about", "occupation"]);
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -185,6 +185,16 @@ export const Personal = ({
             className="form-input"
             name="about"
             value={formData.about}
+            onChange={handleChange}
+          />
+        </label>
+        <br />
+        <label className="form-label">
+          Profissão:
+          <textarea
+            className="form-input"
+            name="occupation"
+            value={formData.occupation}
             onChange={handleChange}
           />
         </label>
