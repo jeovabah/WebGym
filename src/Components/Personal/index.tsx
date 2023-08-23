@@ -22,6 +22,8 @@ export interface PersonalData {
   createdAt: Date;
   updatedAt: Date;
   instagram?: string;
+  occupation?: string;
+  experience?: string;
 }
 
 export const Personal = ({
@@ -57,6 +59,8 @@ export const Personal = ({
         price: Number(formData.price),
         about: formData.about,
         instagram: formData.instagram,
+        occupation: formData?.occupation,
+        experience: formData?.experience,
       } as PersonalData;
 
       let urlApi = "";
@@ -191,13 +195,24 @@ export const Personal = ({
         <br />
         <label className="form-label">
           Profissão:
-          <textarea
+          <input
             className="form-input"
             name="occupation"
             value={formData.occupation}
             onChange={handleChange}
           />
         </label>
+        <br />
+        <label className="form-label">
+          Experiencia (6 anos, 10 anos, etc):
+          <input
+            className="form-input"
+            name="experience"
+            value={formData.experience}
+            onChange={handleChange}
+          />
+        </label>
+
         <br />
         <label className="form-label">
           Instagram:
