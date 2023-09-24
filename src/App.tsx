@@ -32,6 +32,8 @@ interface FormData {
   listPrices?: any[];
   actuationName?: string;
   actuationDescription?: string;
+  occupation?: string;
+  experience?: string;
 }
 
 interface GymData {
@@ -111,6 +113,8 @@ const App = () => {
     listPrices: [],
     actuationName: "",
     actuationDescription: "",
+    occupation: "",
+    experience: "",
   });
   const [personals, setPersonals] = useState<PersonalData[]>([]);
   const [gyms, setGyms] = useState<GymData[]>([]);
