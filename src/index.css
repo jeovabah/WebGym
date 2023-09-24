@@ -67,3 +67,11 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.container-privacidade {
+  width: 70%;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+  color: black;
+}
