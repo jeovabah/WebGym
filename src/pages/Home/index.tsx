@@ -6,6 +6,7 @@ import { Personal, PersonalData } from "../../Components/Personal";
 import { Actuation } from "../../Components/Actuation";
 import { GeneralSettings } from "../../Components/GeneralSettings";
 import { Professional } from "../../Components/Professional";
+import { NotificationComponent } from "../../Components/Notifications";
 
 interface FormData {
   gymId?: any;
@@ -386,405 +387,407 @@ const Home = () => {
   };
 
   return (
-      <div className={`container ${loading ? "active" : ""}`}>
-        {loading && (
-          <>
-            <div className="loading-blur-global-centralize">
-              <div className="loading"></div>
+    <div className={`container ${loading ? "active" : ""}`}>
+      {loading && (
+        <>
+          <div className="loading-blur-global-centralize">
+            <div className="loading"></div>
+          </div>
+        </>
+      )}
+      <h1> Nova Academia</h1>
+      <form className="form" onSubmit={handleSubmit}>
+        <label className="form-label">
+          Nome:
+          <input
+            className="form-input"
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </label>
+        <label className="form-label">
+          Endereço:
+          <input
+            className="form-input"
+            type="text"
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+          />
+        </label>
+        <label className="form-label">
+          Latitude:
+          <input
+            className="form-input"
+            type="number"
+            name="latitude"
+            value={formData.latitude || ""}
+            onChange={handleChange}
+          />
+        </label>
+        <label className="form-label">
+          Longitude:
+          <input
+            className="form-input"
+            type="number"
+            name="longitude"
+            value={formData.longitude || ""}
+            onChange={handleChange}
+          />
+        </label>
+        <label className="form-label">
+          Valor Mensal:
+          <input
+            className="form-input"
+            type="number"
+            name="valueMonth"
+            value={formData.valueMonth || ""}
+            onChange={handleChange}
+          />
+        </label>
+        <label className="form-label">
+          Descrição:
+          <input
+            className="form-input"
+            type="text"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+          />
+        </label>
+        <label className="form-label">
+          <button
+            type="button"
+            onClick={(e: any) => handleAddPrices(e)}
+            className="button-add"
+          >
+            Adicionar Plano
+          </button>
+        </label>
+
+        {formData?.listPrices?.map((price, index) => (
+          <div key={index} className="price-row">
+            <div className="form-row">
+              <label className="form-label">
+                Nome do plano:
+                <input
+                  className="form-input"
+                  type="text"
+                  name="name"
+                  value={price.name}
+                  onChange={(event) => handlePricesChange(index, event)}
+                />
+              </label>
+              <label className="form-label">
+                Valor:
+                <input
+                  className="form-input"
+                  type="number"
+                  name="price"
+                  value={price.price}
+                  onChange={(event) => handlePricesChange(index, event)}
+                />
+              </label>
             </div>
-          </>
-        )}
-        <h1> Nova Academia</h1>
-        <form className="form" onSubmit={handleSubmit}>
-          <label className="form-label">
-            Nome:
-            <input
-              className="form-input"
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="form-label">
-            Endereço:
-            <input
-              className="form-input"
-              type="text"
-              name="address"
-              value={formData.address}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="form-label">
-            Latitude:
-            <input
-              className="form-input"
-              type="number"
-              name="latitude"
-              value={formData.latitude || ""}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="form-label">
-            Longitude:
-            <input
-              className="form-input"
-              type="number"
-              name="longitude"
-              value={formData.longitude || ""}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="form-label">
-            Valor Mensal:
-            <input
-              className="form-input"
-              type="number"
-              name="valueMonth"
-              value={formData.valueMonth || ""}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="form-label">
-            Descrição:
-            <input
-              className="form-input"
-              type="text"
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="form-label">
+
             <button
+              style={{
+                marginBottom: 10,
+              }}
               type="button"
-              onClick={(e: any) => handleAddPrices(e)}
-              className="button-add"
+              onClick={(e) => handleRemovePrices(e, index)}
+              className="button-remove"
             >
-              Adicionar Plano
+              Remover Plano
             </button>
-          </label>
+          </div>
+        ))}
 
-          {formData?.listPrices?.map((price, index) => (
-            <div key={index} className="price-row">
-              <div className="form-row">
-                <label className="form-label">
-                  Nome do plano:
-                  <input
-                    className="form-input"
-                    type="text"
-                    name="name"
-                    value={price.name}
-                    onChange={(event) => handlePricesChange(index, event)}
-                  />
-                </label>
-                <label className="form-label">
-                  Valor:
-                  <input
-                    className="form-input"
-                    type="number"
-                    name="price"
-                    value={price.price}
-                    onChange={(event) => handlePricesChange(index, event)}
-                  />
-                </label>
-              </div>
-
+        {formData?.shifts?.map((shift, index) => (
+          <div key={index} className="shift-row">
+            <div className="form-row">
+              <label className="form-label">
+                Dia da semana:
+                <input
+                  className="form-input"
+                  type="text"
+                  name="day"
+                  value={shift.day}
+                  onChange={(event) => handleShiftChange(index, event)}
+                />
+              </label>
+              <label className="form-label">
+                Início e fim ex: (18:00 - 20:00):
+                <input
+                  className="form-input"
+                  type="text"
+                  name="shift"
+                  value={shift.shift}
+                  onChange={(event) => handleShiftChange(index, event)}
+                />
+              </label>
+            </div>
+            {index > 0 && (
               <button
-                style={{
-                  marginBottom: 10,
-                }}
                 type="button"
-                onClick={(e) => handleRemovePrices(e, index)}
-                className="button-remove"
+                onClick={() => handleRemoveShift(index)}
+                className="remove-shift-button"
               >
-                Remover Plano
+                Remover Turno
               </button>
-            </div>
-          ))}
-
-          {formData?.shifts?.map((shift, index) => (
-            <div key={index} className="shift-row">
-              <div className="form-row">
-                <label className="form-label">
-                  Dia da semana:
-                  <input
-                    className="form-input"
-                    type="text"
-                    name="day"
-                    value={shift.day}
-                    onChange={(event) => handleShiftChange(index, event)}
-                  />
-                </label>
-                <label className="form-label">
-                  Início e fim ex: (18:00 - 20:00):
-                  <input
-                    className="form-input"
-                    type="text"
-                    name="shift"
-                    value={shift.shift}
-                    onChange={(event) => handleShiftChange(index, event)}
-                  />
-                </label>
-              </div>
-              {index > 0 && (
-                <button
-                  type="button"
-                  onClick={() => handleRemoveShift(index)}
-                  className="remove-shift-button"
-                >
-                  Remover Turno
-                </button>
-              )}
-            </div>
-          ))}
-          <label className="form-label">
-            WhatsApp:
-            <input
-              className="form-input"
-              type="text"
-              name="phoneWpp"
-              value={formData.phoneWpp}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="form-label">
-            Instagram:
-            <br />
-            ex: ( jeovagomes )
-            <input
-              className="form-input"
-              type="text"
-              name="instagram"
-              value={formData.instagram}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="form-label">
-            Cupom Ativo:
-            <input
-              className="form-checkbox"
-              type="checkbox"
-              name="cupomActive"
-              checked={formData.cupomActive || false}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="form-label">
-            Logo:
-            <input
-              className="form-input"
-              type="text"
-              name="logo"
-              value={formData.logo}
-              onChange={handleChange}
-            />
-            {formData?.logo && (
-              <div>
-                <img
-                  style={{
-                    width: "50px",
-                    height: "50px",
-
-                    borderRadius: "10px",
-                  }}
-                  src={formData?.logo}
-                />
-              </div>
             )}
-          </label>
-          <label className="form-label">
-            Link da foto em detalhes da academia:
-            <input
-              className="form-input"
-              type="text"
-              name="website"
-              value={formData.website}
-              onChange={handleChange}
-            />
-            {formData?.website && (
-              <div>
-                <img
-                  style={{
-                    width: "100%",
-                    maxWidth: "400px",
-                    height: "200px",
-
-                    borderRadius: "10px",
-                  }}
-                  src={formData?.website}
-                />
-              </div>
-            )}
-          </label>
-          <label className="form-label">
-            Início Anual:
-            <input
-              className="form-input"
-              type="text"
-              name="anualStart"
-              value={formData.anualStart}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="form-label">
-            Detalhes 1:
-            <input
-              className="form-input"
-              type="text"
-              name="details1"
-              value={formData.details1}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="form-label">
-            Detalhes 2:
-            <input
-              className="form-input"
-              type="text"
-              name="details2"
-              value={formData.details2}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="form-label">
-            Detalhes 3:
-            <input
-              className="form-input"
-              type="text"
-              name="details3"
-              value={formData.details3}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="form-label">
-            Detalhes 4:
-            <input
-              className="form-input"
-              type="text"
-              name="details4"
-              value={formData.details4}
-              onChange={handleChange}
-            />
-          </label>
-          <label className="form-label">
-            Imagens:
-            {/* array of images */}
+          </div>
+        ))}
+        <label className="form-label">
+          WhatsApp:
+          <input
+            className="form-input"
+            type="text"
+            name="phoneWpp"
+            value={formData.phoneWpp}
+            onChange={handleChange}
+          />
+        </label>
+        <label className="form-label">
+          Instagram:
+          <br />
+          ex: ( jeovagomes )
+          <input
+            className="form-input"
+            type="text"
+            name="instagram"
+            value={formData.instagram}
+            onChange={handleChange}
+          />
+        </label>
+        <label className="form-label">
+          Cupom Ativo:
+          <input
+            className="form-checkbox"
+            type="checkbox"
+            name="cupomActive"
+            checked={formData.cupomActive || false}
+            onChange={handleChange}
+          />
+        </label>
+        <label className="form-label">
+          Logo:
+          <input
+            className="form-input"
+            type="text"
+            name="logo"
+            value={formData.logo}
+            onChange={handleChange}
+          />
+          {formData?.logo && (
             <div>
-              <button onClick={handleAddImage}>Adicionar Imagem</button>
-              {formData?.images?.map((image, index) => (
-                <>
-                  <div
-                    key={index}
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      gap: "10px",
-                    }}
-                  >
-                    <input
-                      className="form-input"
-                      type="text"
-                      name="images"
-                      style={{
-                        marginTop: "10px",
-                      }}
-                      value={image}
-                      onChange={(e) => handleImageChange(e, index)}
-                    />
-                    <button onClick={(e) => handleRemoveImage(e, index)}>
-                      X
-                    </button>
-                  </div>
-                </>
-              ))}
+              <img
+                style={{
+                  width: "50px",
+                  height: "50px",
 
-              {/* PREVIEW IMAGES CARROUSEL*/}
+                  borderRadius: "10px",
+                }}
+                src={formData?.logo}
+              />
+            </div>
+          )}
+        </label>
+        <label className="form-label">
+          Link da foto em detalhes da academia:
+          <input
+            className="form-input"
+            type="text"
+            name="website"
+            value={formData.website}
+            onChange={handleChange}
+          />
+          {formData?.website && (
+            <div>
+              <img
+                style={{
+                  width: "100%",
+                  maxWidth: "400px",
+                  height: "200px",
 
-              {formData?.images?.map((image, index) => (
+                  borderRadius: "10px",
+                }}
+                src={formData?.website}
+              />
+            </div>
+          )}
+        </label>
+        <label className="form-label">
+          Início Anual:
+          <input
+            className="form-input"
+            type="text"
+            name="anualStart"
+            value={formData.anualStart}
+            onChange={handleChange}
+          />
+        </label>
+        <label className="form-label">
+          Detalhes 1:
+          <input
+            className="form-input"
+            type="text"
+            name="details1"
+            value={formData.details1}
+            onChange={handleChange}
+          />
+        </label>
+        <label className="form-label">
+          Detalhes 2:
+          <input
+            className="form-input"
+            type="text"
+            name="details2"
+            value={formData.details2}
+            onChange={handleChange}
+          />
+        </label>
+        <label className="form-label">
+          Detalhes 3:
+          <input
+            className="form-input"
+            type="text"
+            name="details3"
+            value={formData.details3}
+            onChange={handleChange}
+          />
+        </label>
+        <label className="form-label">
+          Detalhes 4:
+          <input
+            className="form-input"
+            type="text"
+            name="details4"
+            value={formData.details4}
+            onChange={handleChange}
+          />
+        </label>
+        <label className="form-label">
+          Imagens:
+          {/* array of images */}
+          <div>
+            <button onClick={handleAddImage}>Adicionar Imagem</button>
+            {formData?.images?.map((image, index) => (
+              <>
                 <div
                   key={index}
                   style={{
                     display: "flex",
+                    justifyContent: "space-between",
                     alignItems: "center",
                     gap: "10px",
-                    width: "100%",
-                    marginBottom: "10px",
                   }}
                 >
-                  <img
+                  <input
+                    className="form-input"
+                    type="text"
+                    name="images"
                     style={{
-                      maxWidth: "400px",
-                      height: "200px",
-                      width: "100%",
-                      borderRadius: "10px",
+                      marginTop: "10px",
                     }}
-                    src={image}
+                    value={image}
+                    onChange={(e) => handleImageChange(e, index)}
                   />
+                  <button onClick={(e) => handleRemoveImage(e, index)}>
+                    X
+                  </button>
                 </div>
-              ))}
-            </div>
-          </label>
-          <button className="form-button" type="submit">
-            {formData.id ? "Editar Academia" : "Criar Academia"}
-          </button>
-        </form>
-        <div className="gyms-list">
-          <h2>Academias Cadastradas</h2>
-          {gyms.map((gym) => (
-            <div key={gym.id} className="gym-item">
-              <span className="gym-name">{gym.name}</span>
-              <button className="edit-button" onClick={() => handleEdit(gym)}>
-                Editar
-              </button>
-              <button
-                className="delete-button"
-                onClick={() => handleDelete(gym.id)}
+              </>
+            ))}
+
+            {/* PREVIEW IMAGES CARROUSEL*/}
+
+            {formData?.images?.map((image, index) => (
+              <div
+                key={index}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                  width: "100%",
+                  marginBottom: "10px",
+                }}
               >
-                Excluir
-              </button>
-            </div>
-          ))}
-        </div>
-
-        <Professional
-          formData={formData}
-          gyms={gyms}
-          handleChange={handleChange}
-          resetForm={resetForm}
-          setLoading={setLoading}
-        />
-
-        <Personal
-          setPersonals={setPersonals}
-          personals={personals}
-          formData={formData}
-          handleChange={handleChange}
-          resetForm={resetForm}
-          setLoading={setLoading}
-        />
-
-        <Actuation
-          formData={formData}
-          personals={personals}
-          setPersonals={setPersonals}
-          handleChange={handleChange}
-          resetForm={resetForm}
-          setLoading={setLoading}
-        />
-        <GeneralSettings
-          formData={formData}
-          handleChange={handleChange}
-          resetForm={resetForm}
-          setLoading={setLoading}
-        />
-
-        {/* <ImageAiArt /> */}
-
-        <FaceSimilarityComponent />
+                <img
+                  style={{
+                    maxWidth: "400px",
+                    height: "200px",
+                    width: "100%",
+                    borderRadius: "10px",
+                  }}
+                  src={image}
+                />
+              </div>
+            ))}
+          </div>
+        </label>
+        <button className="form-button" type="submit">
+          {formData.id ? "Editar Academia" : "Criar Academia"}
+        </button>
+      </form>
+      <div className="gyms-list">
+        <h2>Academias Cadastradas</h2>
+        {gyms.map((gym) => (
+          <div key={gym.id} className="gym-item">
+            <span className="gym-name">{gym.name}</span>
+            <button className="edit-button" onClick={() => handleEdit(gym)}>
+              Editar
+            </button>
+            <button
+              className="delete-button"
+              onClick={() => handleDelete(gym.id)}
+            >
+              Excluir
+            </button>
+          </div>
+        ))}
       </div>
+
+      <Professional
+        formData={formData}
+        gyms={gyms}
+        handleChange={handleChange}
+        resetForm={resetForm}
+        setLoading={setLoading}
+      />
+
+      <Personal
+        setPersonals={setPersonals}
+        personals={personals}
+        formData={formData}
+        handleChange={handleChange}
+        resetForm={resetForm}
+        setLoading={setLoading}
+      />
+
+      <Actuation
+        formData={formData}
+        personals={personals}
+        setPersonals={setPersonals}
+        handleChange={handleChange}
+        resetForm={resetForm}
+        setLoading={setLoading}
+      />
+      <GeneralSettings
+        formData={formData}
+        handleChange={handleChange}
+        resetForm={resetForm}
+        setLoading={setLoading}
+      />
+
+      <NotificationComponent setLoading={setLoading} />
+
+      {/* <ImageAiArt /> */}
+
+      <FaceSimilarityComponent />
+    </div>
   );
 };
 
