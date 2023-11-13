@@ -11,10 +11,14 @@ export const NotificationComponent = ({ setLoading }: Props) => {
     body: "",
   });
 
-  const handleSendNotification = async () => {
+  const handleSendNotification = async (e: any) => {
+    e.preventDefault();
     setLoading(true);
     try {
-      const { data } = await Api.post("notification/sendNotificationAll");
+      const { data } = await Api.post("notification/sendNotificationAll", {
+        title: inputNotification.title,
+        body: inputNotification.body,
+      });
       console.log(data);
       setLoading(false);
     } catch (error) {
